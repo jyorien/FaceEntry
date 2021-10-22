@@ -24,7 +24,7 @@ function addFaceToRekognitionCollection() {
         }
     })
 }
-
+compareFaceWithRekognitionCollection()
 // compare image from S3 or bytes with images in Rekognition collection
 function compareFaceWithRekognitionCollection() {
     const params = {
@@ -33,7 +33,7 @@ function compareFaceWithRekognitionCollection() {
         Image: {
             S3Object: {
                 Bucket: process.env.S3_BUCKET_NAME,
-                Name: "jordan.jpg"
+                Name: "joey_masked.jpg"
             }
         },
         MaxFaces: 5
@@ -43,6 +43,7 @@ function compareFaceWithRekognitionCollection() {
             console.log(err)
         } else {
             console.log(data)
+            console.log(data.FaceMatches[0].Face)
         }
     })
 }
