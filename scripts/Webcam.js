@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({path: '../.env'})
 
 var awsIot = require('aws-iot-device-sdk')
 
