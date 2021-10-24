@@ -8,9 +8,16 @@
 </head>
 <body>
     <input type="file" id="image_input" accept="image/png, image/gif, image/jpeg"/>
+    <div>
+        <video hidden="true" id="videoInput" height="480" width="640"></video>
+        <canvas id="canvasOutput"></canvas>
+    </div>
 
     
 </body>
+<script src="Utils.js"></script>
 <script src="index.js"></script>
+<script src="opencv.js" onload="onOpenCVReady()"></script>
+
 
 </html>
