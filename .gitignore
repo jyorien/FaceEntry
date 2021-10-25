@@ -3,3 +3,5 @@ node_modules
 certs
 .DS_Store
 joey_unmasked.jpeg
+s3_config.json
+out.png

@@ -83,10 +83,17 @@ function onOpenCVReady() {
           const image = new Image()
           image.onload = () => {
               ctx.drawImage(image,point1.x, point1.y, point2.x, point2.y, 0, 0, point2.x, point2.y)
-
-
-          }
+              const request = new XMLHttpRequest()
+              request.open('POST','/image')
+              request.setRequestHeader("Content-type", "application/json");
+          
+              const imageObject = new Object()
+              imageObject.temp = (Math.random() * (38.5 - 36.5) + 36.5).toFixed(1)
+              imageObject.data = cav2.toDataURL()
+              request.send(JSON.stringify(imageObject))
+            }
           image.src = rawImage
+
 
     }
   });

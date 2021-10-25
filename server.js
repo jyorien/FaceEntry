@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require("express")
 const app = express()
 const host = "127.0.0.1"
-const port = 8080
+const port = 8081
 const start_page = "index.html"
 const bodyParser = require("body-parser")
 app.use(express.static("./public"))
