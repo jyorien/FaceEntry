@@ -19,6 +19,9 @@ file_input.addEventListener('change', (event) => {
     reader.readAsDataURL(img)
 })
 
+var point1 
+var point2
+
 function onOpenCVReady() {
 
       let video = document.getElementById("videoInput"); 
@@ -55,11 +58,12 @@ function onOpenCVReady() {
           }
           for (let i = 0; i < faces.size(); ++i) {
               let face = faces.get(i);
-              let point1 = new cv.Point(face.x, face.y);
-              let point2 = new cv.Point(face.x + face.width, face.y + face.height);
+               point1 = new cv.Point(face.x, face.y);
+               point2 = new cv.Point(face.x + face.width, face.y + face.height);
               cv.rectangle(dst, point1, point2, [255, 0, 0, 255]);
           }
           cv.imshow("canvasOutput", dst);
+
           // schedule next one.
           let delay = 1000/FPS - (Date.now() - begin);
           setTimeout(processVideo, delay);
@@ -68,3 +72,21 @@ function onOpenCVReady() {
   setTimeout(processVideo, 0);
   
   }
+
+  document.addEventListener("keypress", function(event) {
+    if (event.keyCode == 32) {
+          var canvasOutputElement = document.getElementById("canvasOutput")
+          var rawImage = canvasOutputElement.toDataURL("image/jpeg;base64")  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+          console.log(rawImage)
+          var cav2 = document.getElementById("canvas2")
+          var ctx = cav2.getContext("2d")
+          const image = new Image()
+          image.onload = () => {
+              ctx.drawImage(image,point1.x, point1.y, point2.x, point2.y, 0, 0, point2.x, point2.y)
+
+
+          }
+          image.src = rawImage
+
+    }
+  });
