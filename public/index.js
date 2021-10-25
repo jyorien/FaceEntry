@@ -21,7 +21,8 @@ file_input.addEventListener('change', (event) => {
 
 var point1 
 var point2
-
+var fWidth
+var fHeight
 function onOpenCVReady() {
 
       let video = document.getElementById("videoInput"); 
@@ -58,8 +59,14 @@ function onOpenCVReady() {
           }
           for (let i = 0; i < faces.size(); ++i) {
               let face = faces.get(i);
-               point1 = new cv.Point(face.x, face.y);
-               point2 = new cv.Point(face.x + face.width, face.y + face.height);
+               point1 = new cv.Point(face.x, face.y)
+               point2 = new cv.Point(face.x + face.width, face.y + face.height)
+               fWidth = face.width
+               fHeight = face.height
+               console.log("point 1", point1)
+               console.log("point 2",point2)
+               console.log("fWidth", fWidth)
+               console.log("fHeight", fHeight)
               cv.rectangle(dst, point1, point2, [255, 0, 0, 255]);
           }
           cv.imshow("canvasOutput", dst);
@@ -82,7 +89,14 @@ function onOpenCVReady() {
           var ctx = cav2.getContext("2d")
           const image = new Image()
           image.onload = () => {
-              ctx.drawImage(image,point1.x, point1.y, point2.x, point2.y, 0, 0, point2.x, point2.y)
+              var extendedPt1x = point1.x
+              var extendedPt1y = point1.y-15
+              var extendedWidth = fWidth+100
+              var extendedHeight = fHeight+15
+              console.log("Extended 1 X", extendedPt1x)
+              console.log("Extended 1 Y", extendedPt1y)
+              ctx.clearRect(0,0,cav2.width, cav2.height)
+              ctx.drawImage(image,extendedPt1y, extendedPt1y, extendedWidth, extendedHeight,0,0,extendedWidth, extendedHeight)
               const request = new XMLHttpRequest()
               request.open('POST','/image')
               request.setRequestHeader("Content-type", "application/json");

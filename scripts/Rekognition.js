@@ -33,7 +33,7 @@ function compareFaceWithRekognitionCollection() {
         Image: {
             S3Object: {
                 Bucket: process.env.S3_BUCKET_NAME,
-                Name: "joey_masked.jpg"
+                Name: "1635175575991"
             }
         },
         MaxFaces: 5
