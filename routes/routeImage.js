@@ -1,5 +1,6 @@
 const Webcam = require('../Webcam')
 const webcam = new Webcam()
+webcam.connectToDevice()
 module.exports = class RouteImage {
     routeImage(app) {
         app.route('/image')

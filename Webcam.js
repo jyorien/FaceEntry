@@ -15,26 +15,30 @@ const device = awsIot.device({
 
 // uncomment when server is needed ready, just trying to save resources
 module.exports = class Webcam {
-    constructor() {
-        
 
-        device.on('connect',()=> {
-            console.log("connect")
-            device.subscribe(process.env.TOPIC_NAME)
-            console.log("subscribed to", process.env.TOPIC_NAME)
-        })
-        
+
+    onMessageRecevied(res) {
+
         device.on('message', (topic, payload) => {
             console.log("message received:")
             console.log('message', topic, payload.toString())
+            res.write('data: ' + JSON.stringify({ msg : testdata }) + '\n\n');
+       
+            res.on('close',function() {
+                console.log("Client has closed the connection")
+                res.end()
+            })
         })
-
-
     }
 
-    getS3BucketReference(base64) {
-
-        
+    connectToDevice() {
+        device.on('connect',()=> {
+            console.log("connect")
+            device.subscribe(process.env.TOPIC_NAME)
+            device.subscribe(process.env.RES_TOPIC_NAME)
+            console.log("subscribed to", process.env.TOPIC_NAME)
+            console.log("subscribed to", process.env.RES_TOPIC_NAME)
+        })
     }
 
     publishToWebcamTopic(base64,temp) {
