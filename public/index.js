@@ -1,9 +1,18 @@
+
+const nameSpan = document.getElementById("name")
+const tempSpan = document.getElementById("temp")
+const resultSpan = document.getElementById("result")
 const socket = new WebSocket('ws://localhost:8086')
 socket.addEventListener('message', function(event) {
     const reader = new FileReader()
     reader.addEventListener('load',(event2) => {
         const json = JSON.parse(reader.result)
         displayCheckInResult(json)
+        setTimeout(function() {
+            nameSpan.innerText = ""
+            tempSpan.innerHTML = ""
+            resultSpan.innerText = ""
+        },3000)
 
     })
     reader.readAsText(event.data)
@@ -11,28 +20,22 @@ socket.addEventListener('message', function(event) {
 
 function displayCheckInResult(json) {
     console.log("json", json)
+    tempSpan.innerHTML = `${json.Temp}&#176;C`
+    resultSpan.innerText = ""
+    if (Number(json.Temp) >= 37.5 ) {
+        resultSpan.innerText+= "CHECK IN UNSUCCESSFUL, TEMPERATURE TOO HIGH\n"
+
+    } else {
+        resultSpan.innerText = "CHECKED IN"
+    }
+    
+    if (!json.FaceMatch) {
+        resultSpan.innerText+= "CHECK IN UNSUCCESSFUL, FACE NOT RECOGNISED"
+    } else {
+        nameSpan.innerText = json.ExternalImageId
+    }
 
 }
-
-const file_input = document.getElementById("image_input")
-file_input.addEventListener('change', (event) => {
-    const img = event.target.files[0]
-
-    const reader = new FileReader()
-    reader.addEventListener('load', (event2) => {
-        console.log("data",event2.target.result)
-
-        const request = new XMLHttpRequest()
-        request.open('POST','/image')
-        request.setRequestHeader("Content-type", "application/json");
-    
-        const imageObject = new Object()
-        imageObject.temp = 37.5
-        imageObject.data = event2.target.result
-        request.send(JSON.stringify(imageObject))
-    })
-    reader.readAsDataURL(img)
-})
 
 var point1 
 var point2
@@ -91,7 +94,6 @@ function onOpenCVReady() {
   setTimeout(processVideo, 0);
   
   }
-
   document.addEventListener("keypress", function(event) {
     if (event.keyCode == 32) {
           var canvasOutputElement = document.getElementById("canvasOutput")
@@ -118,7 +120,27 @@ function onOpenCVReady() {
               request.send(JSON.stringify(imageObject))
             }
           image.src = rawImage
-
-
     }
   });
+
+
+// back up if video feed doesn't work
+// const file_input = document.getElementById("image_input")
+// file_input.addEventListener('change', (event) => {
+//     const img = event.target.files[0]
+
+//     const reader = new FileReader()
+//     reader.addEventListener('load', (event2) => {
+//         console.log("data",event2.target.result)
+
+//         const request = new XMLHttpRequest()
+//         request.open('POST','/image')
+//         request.setRequestHeader("Content-type", "application/json");
+    
+//         const imageObject = new Object()
+//         imageObject.temp = 37.5
+//         imageObject.data = event2.target.result
+//         request.send(JSON.stringify(imageObject))
+//     })
+//     reader.readAsDataURL(img)
+// })

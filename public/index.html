@@ -7,12 +7,15 @@
     <title>FaceEntry</title>
 </head>
 <body>
-    <input type="file" id="image_input" accept="image/png, image/gif, image/jpeg"/>
+    <!-- <input type="file" id="image_input" accept="image/png, image/gif, image/jpeg"/> -->
     <div>
         <video hidden="true" id="videoInput" height="480" width="640"></video>
         <canvas id="canvasOutput"></canvas>
-        <canvas width="380" height="240" id="canvas2"></canvas>
+        <canvas hidden="true" width="380" height="240" id="canvas2"></canvas>
     </div>
+    <span id="name"></span><br>
+    <span id="temp"></span><br>
+    <span id="result"></span>
 
     
 </body>
