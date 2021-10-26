@@ -1,3 +1,18 @@
+const socket = new WebSocket('ws://localhost:8086')
+socket.addEventListener('message', function(event) {
+    const reader = new FileReader()
+    reader.addEventListener('load',(event2) => {
+        const json = JSON.parse(reader.result)
+        displayCheckInResult(json)
+
+    })
+    reader.readAsText(event.data)
+})
+
+function displayCheckInResult(json) {
+    console.log("json", json)
+
+}
 
 const file_input = document.getElementById("image_input")
 file_input.addEventListener('change', (event) => {
@@ -16,7 +31,6 @@ file_input.addEventListener('change', (event) => {
         imageObject.data = event2.target.result
         request.send(JSON.stringify(imageObject))
     })
-    console.log("image",img)
     reader.readAsDataURL(img)
 })
 
@@ -54,7 +68,7 @@ function onOpenCVReady() {
           cv.cvtColor(dst, gray, cv.COLOR_RGBA2GRAY, 0);
           try{
               classifier.detectMultiScale(gray, faces, 1.1, 3, 0);
-              console.log(faces.size());
+  
           }catch(err){
               console.log(err);
           }
@@ -64,10 +78,7 @@ function onOpenCVReady() {
                point2 = new cv.Point(face.x + face.width, face.y + face.height)
                fWidth = face.width
                fHeight = face.height
-               console.log("point 1", point1)
-               console.log("point 2",point2)
-               console.log("fWidth", fWidth)
-               console.log("fHeight", fHeight)
+
               cv.rectangle(dst, point1, point2, [255, 0, 0, 255]);
           }
           cv.imshow("canvasOutput", dst);
@@ -85,7 +96,7 @@ function onOpenCVReady() {
     if (event.keyCode == 32) {
           var canvasOutputElement = document.getElementById("canvasOutput")
           var rawImage = canvasOutputElement.toDataURL("image/jpeg;base64")  // here is the most important part because if you dont replace you will get a DOM 18 exception.
-          console.log(rawImage)
+   
           var cav2 = document.getElementById("canvas2")
           var ctx = cav2.getContext("2d")
           const image = new Image()
@@ -94,8 +105,7 @@ function onOpenCVReady() {
               var extendedPt1y = point1.y-15
               var extendedWidth = fWidth+100
               var extendedHeight = fHeight+15
-              console.log("Extended 1 X", extendedPt1x)
-              console.log("Extended 1 Y", extendedPt1y)
+
               ctx.clearRect(0,0,cav2.width, cav2.height)
               ctx.drawImage(image,extendedPt1y, extendedPt1y, extendedWidth, extendedHeight,0,0,extendedWidth, extendedHeight)
               const request = new XMLHttpRequest()

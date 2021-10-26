@@ -4,6 +4,8 @@ var awsIot = require('aws-iot-device-sdk')
 var AWS = require('aws-sdk')
 AWS.config.loadFromPath('./s3_config.json')
 var s3Bucket = new AWS.S3({params: {Bucket:'faceentrybucket'}})
+
+// create IoT Device
 const device = awsIot.device({
     keyPath: process.env.KEY_PATH,
     certPath: process.env.CERT_PATH,
@@ -13,21 +15,21 @@ const device = awsIot.device({
     region: process.env.REGION
 }) 
 
-// uncomment when server is needed ready, just trying to save resources
 module.exports = class Webcam {
 
 
-    onMessageRecevied(res) {
-
+    // get messages from MQTT
+    // gives payload to callback function
+    onMessageRecevied(callback) {
         device.on('message', (topic, payload) => {
+            if (topic === process.env.RES_TOPIC_NAME) {
+                console.log("payload",payload.toString())
+                callback(payload)
+            }
             console.log("message received:")
             console.log('message', topic, payload.toString())
-            res.write('data: ' + JSON.stringify({ msg : testdata }) + '\n\n');
        
-            res.on('close',function() {
-                console.log("Client has closed the connection")
-                res.end()
-            })
+           
         })
     }
 
