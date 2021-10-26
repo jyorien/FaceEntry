@@ -1,3 +1,4 @@
+const eventSource = new EventSource(`http://localhost:${process.env.PORT}`)
 const file_input = document.getElementById("image_input")
 file_input.addEventListener('change', (event) => {
     const img = event.target.files[0]

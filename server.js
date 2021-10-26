@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require("express")
 const app = express()
 const host = "127.0.0.1"
-const port = 8081
 const start_page = "index.html"
 const bodyParser = require("body-parser")
 app.use(express.static("./public"))
@@ -19,7 +18,7 @@ app.route("/")
 
 RouteImage.routeImage(app)
 
-var server = app.listen(port, host, function() {
+var server = app.listen(process.env.PORT, host, function() {
     var host = server.address().address;
     var port = server.address().port;
 
