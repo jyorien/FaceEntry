@@ -41,34 +41,33 @@ module.exports = class Webcam {
         const splitBase64 = base64.replace("data:image/png;base64,", "");
         fs.writeFile("out.png", splitBase64,{encoding: 'base64'} ,(err) => {
             console.log("Error writing file", err)
-        })
-        const key = Date.now().toString()
-        const data = {
-            Key: key,
-            Body: fs.readFileSync('out.png'),
-            ContentEncoding: 'base64',
-            ContentType: 'image/jpeg'
-        }
-        s3Bucket.putObject(data, function(err,data) {
-            if (err) console.log("Error upload to S3",err)
-            else {
-                console.log("returned data from S3", data)
-                
-                // publish s3 link and temp
-                const params = {
-                    topic: process.env.TOPIC_NAME,
-                    payload: JSON.stringify({
-                        'ImageKey': key,
-                        'Temperature': temp
-                    })
-                }
 
-                device.publish(params.topic, params.payload)
-    
+            const key = Date.now().toString()
+            const data = {
+                Key: key,
+                Body: fs.readFileSync('out.png'),
+                ContentEncoding: 'base64',
+                ContentType: 'image/jpeg'
             }
-        })       
-
-
-  
+            s3Bucket.putObject(data, function(err,data) {
+                if (err) console.log("Error upload to S3",err)
+                else {
+                    console.log("returned data from S3", data)
+                    
+                    // publish s3 link and temp
+                    const params = {
+                        topic: process.env.TOPIC_NAME,
+                        payload: JSON.stringify({
+                            'ImageKey': key,
+                            'Temperature': temp
+                        })
+                    }
+    
+                    device.publish(params.topic, params.payload)
+        
+                }
+            })  
+        })
+       
     }
 }
