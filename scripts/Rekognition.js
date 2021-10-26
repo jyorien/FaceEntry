@@ -6,6 +6,7 @@ const rekognitionClient = new AWS.Rekognition({region: process.env.REGION})
 function addFaceToRekognitionCollection() {
     const params = {
         CollectionId: process.env.REKOGNITION_COLLECTION_ID,
+        ExternalImageId: "Joey",
         DetectionAttributes: ['ALL'],
         Image: {
             S3Object: {
@@ -24,7 +25,8 @@ function addFaceToRekognitionCollection() {
         }
     })
 }
-compareFaceWithRekognitionCollection()
+addFaceToRekognitionCollection()
+// compareFaceWithRekognitionCollection()
 // compare image from S3 or bytes with images in Rekognition collection
 function compareFaceWithRekognitionCollection() {
     const params = {
