@@ -11,7 +11,7 @@ const device = awsIot.device({
     certPath: process.env.CERT_PATH,
     caPath: process.env.CA_PATH,
     host: process.env.HOST,
-    clientId: 'first-try',
+    clientId: process.env.CLIENT_ID,
     region: process.env.REGION
 }) 
 
@@ -65,7 +65,8 @@ module.exports = class Webcam {
                         topic: process.env.TOPIC_NAME,
                         payload: JSON.stringify({
                             'ImageKey': key,
-                            'Temperature': temp
+                            'Temperature': temp,
+                            'Client': process.env.CLIENT_ID
                         })
                     }
     
