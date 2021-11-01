@@ -8,14 +8,18 @@
 </head>
 <body>
     <!-- <input type="file" id="image_input" accept="image/png, image/gif, image/jpeg"/> -->
-    <div>
+    <span>
         <video hidden="true" id="videoInput" height="480" width="640"></video>
         <canvas id="canvasOutput"></canvas>
         <canvas hidden="true" width="380" height="240" id="canvas2"></canvas>
+    </span>
+    <div id="box" style="border-style: solid; display: none; padding: 40;" hidden>
+        <h3 id="success_status"></h3><br>
+        <span id="name"></span><br>
+        <span id="temp"></span><br>
+        <span id="temp_warn"></span>
     </div>
-    <span id="name"></span><br>
-    <span id="temp"></span><br>
-    <span id="result"></span>
+
 
     
 </body>

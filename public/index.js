@@ -1,7 +1,9 @@
 
 const nameSpan = document.getElementById("name")
 const tempSpan = document.getElementById("temp")
-const resultSpan = document.getElementById("result")
+const tempWarnSpan = document.getElementById("temp_warn")
+const successStatusSpan = document.getElementById("success_status")
+const boxDiv = document.getElementById("box")
 const socket = new WebSocket('ws://localhost:8086')
 socket.addEventListener('message', function(event) {
     const reader = new FileReader()
@@ -11,7 +13,10 @@ socket.addEventListener('message', function(event) {
         setTimeout(function() {
             nameSpan.innerText = ""
             tempSpan.innerHTML = ""
-            resultSpan.innerText = ""
+            successStatusSpan.innerText = ""
+            tempWarnSpan.innerHTML = ""
+            boxDiv.hidden = true
+            boxDiv.style.display = 'none'
         },3000)
 
     })
@@ -20,20 +25,28 @@ socket.addEventListener('message', function(event) {
 
 function displayCheckInResult(json) {
     console.log("json", json)
-    tempSpan.innerHTML = `${json.Temp}&#176;C`
-    resultSpan.innerText = ""
-    if (Number(json.Temp) >= 37.5 ) {
-        resultSpan.innerText+= "CHECK IN UNSUCCESSFUL, TEMPERATURE TOO HIGH\n"
+    boxDiv.hidden = false
+    boxDiv.style.display = 'inline-block'
+    if (Number(json.Temp) >= 37.5 || !json.FaceMatch) 
+        successStatusSpan.innerText = "CHECK IN UNSUCCESSFUL"
+    else 
+        successStatusSpan.innerText = "CHECK IN SUCCESSFUL"
 
-    } else {
-        resultSpan.innerText = "CHECKED IN"
-    }
+    if (!json.FaceMatch) 
+        nameSpan.innerText = "FACE NOT RECOGNISED"
+    else 
+        nameSpan.innerText = `${json.ExternalImageId}`
+
+
+    tempSpan.innerHTML = `${json.Temp}&#176;C`
+
     
-    if (!json.FaceMatch) {
-        resultSpan.innerText+= "CHECK IN UNSUCCESSFUL, FACE NOT RECOGNISED"
-    } else {
-        nameSpan.innerText = json.ExternalImageId
-    }
+    if (Number(json.Temp) >= 37.5 ) 
+        tempWarnSpan.innerHTML+= "TEMPERATURE TOO HIGH"
+    
+    
+
+    
 
 }
 
