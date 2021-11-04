@@ -136,6 +136,10 @@ function onOpenCVReady() {
     }
   });
 
+  function login() {
+      window.location.href = "http://127.0.0.1:8086/login.html"
+  }
+
 
 // back up if video feed doesn't work
 // const file_input = document.getElementById("image_input")
