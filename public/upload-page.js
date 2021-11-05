@@ -4,8 +4,10 @@ if (window.location.href != "http://127.0.0.1:8086/upload-page") {
 
 const file_input = document.getElementById("image_input")
 const name_input = document.getElementById("name_input")
+const success_span = document.getElementById("success")
 var data
 file_input.addEventListener('change', (event) => {
+    success_span.hidden = true
     const img = event.target.files[0]
 
     const reader = new FileReader()
@@ -27,6 +29,9 @@ function uploadFileToRekognition() {
     request.onload = function() {
         var response = JSON.parse(request.responseText)
         console.log(response)
+        name_input.value = ""
+        file_input.value = null
+        success_span.hidden = false
     }
     request.send(JSON.stringify(imageObject))
 }

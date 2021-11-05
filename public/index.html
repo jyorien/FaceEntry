@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FaceEntry</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <a onclick="login()" style="color: blue; text-decoration: underline; cursor: pointer;" >Admin Login</a>
-    <br>
+    <div w3-include-html="top_nav.html"></div>
+
     <span>
         <video hidden="true" id="videoInput" height="480" width="640"></video>
         <canvas id="canvasOutput"></canvas>
@@ -27,6 +28,10 @@
 <script src="Utils.js"></script>
 <script src="index.js"></script>
 <script src="opencv.js" onload="onOpenCVReady()"></script>
-
+<script src="w3.js"></script>
+<script>
+    //to bring in other HTML on the fly into this page
+    w3.includeHTML();
+</script>
 
 </html>
