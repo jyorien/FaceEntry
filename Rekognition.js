@@ -10,7 +10,7 @@ module.exports = class Rekog {
     addFaceToRekognitionCollection(data, userName, callback) {
         if (data === undefined) return
         console.log("DATA",data)
-        const splitBase64 = data.replace("data:image/jpeg;base64,", "");
+        const splitBase64 = data.split(',')[1];
         fs.writeFile("out2.png", splitBase64,{encoding: 'base64'} ,(err) => {
             if(err) console.log("Error writing file", err)
     
