@@ -34,7 +34,10 @@ module.exports = class RouteAuth {
                 req.session.isLoggedIn = true
                 res.redirect("/upload-page")
             }, 
-                onFailure: function(err) { console.log("error auth", err) }, 
+                onFailure: function(err) { 
+                    console.log("error auth", err) 
+                    res.redirect("/error_page.html")
+                }, 
                 newPasswordRequired: function(userAttributes, requiredAttributes) {
                     delete userAttributes.email_verified
                     sessionUserAttributes = userAttributes
