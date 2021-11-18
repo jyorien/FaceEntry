@@ -137,7 +137,7 @@ function onOpenCVReady() {
   });
 
   function login() {
-      window.location.href = "http://127.0.0.1:8088/login.html"
+      window.location.pathname = "/login.html"
   }
 
 
