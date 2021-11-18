@@ -1,5 +1,5 @@
 if (window.location.href != "http://0.0.0.0:80/upload-page") {
-    window.location.href = "http://0.0.0.0:80/"
+    window.location.href = "http://0.0.0.0:8080/"
 }
 
 const file_input = document.getElementById("image_input")
