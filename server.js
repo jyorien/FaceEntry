@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require("express")
 const session = require('express-session')
 const app = express()
-const host = "127.0.0.1"
+const host = process.env.DOMAIN
 const start_page = "index.html"
 const bodyParser = require("body-parser")
 const WebSocket = require('ws')
