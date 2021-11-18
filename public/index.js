@@ -4,7 +4,7 @@ const tempSpan = document.getElementById("temp")
 const tempWarnSpan = document.getElementById("temp_warn")
 const successStatusSpan = document.getElementById("success_status")
 const boxDiv = document.getElementById("box")
-const socket = new WebSocket('ws://0.0.0.0:8086')
+const socket = new WebSocket('ws://0.0.0.0:8088')
 socket.addEventListener('message', function(event) {
     const reader = new FileReader()
     reader.addEventListener('load',(event2) => {
