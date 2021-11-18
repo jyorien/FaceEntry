@@ -1,5 +1,5 @@
-if (window.location.href != "http://0.0.0.0:8088/upload-page") {
-    window.location.href = "http://0.0.0.0:8088/"
+if (window.location.href != "http://localhost:8088/upload-page") {
+    window.location.href = "http://localhost:8088/"
 }
 
 const file_input = document.getElementById("image_input")
