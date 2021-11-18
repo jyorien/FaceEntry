@@ -32,7 +32,7 @@ app.route("/")
 RouteImage.routeImage(app)
 RouteAuth.routeAuth(app)
 RouteUpload.routeUpload(app)
-var server = app.listen(process.env.PORT, host, function() {
+var server = app.listen(8088, host, function() {
     var host = server.address().address;
     var port = server.address().port;
 
