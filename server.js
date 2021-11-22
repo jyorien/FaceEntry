@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require("express")
 const session = require('express-session')
 const app = express()
-const host = process.env.DOMAIN
 const start_page = "index.html"
 const bodyParser = require("body-parser")
 const WebSocket = require('ws')
@@ -33,10 +32,9 @@ RouteImage.routeImage(app)
 RouteAuth.routeAuth(app)
 RouteUpload.routeUpload(app)
 var server = app.listen(8088, function() {
-    var host = server.address().address;
     var port = server.address().port;
 
-    console.log("Example app listening at http://%s:%s", host, port);
+    console.log("Example app listening at http://%s:%s", port);
 });
 
 // create websocket server
