@@ -1,10 +1,11 @@
 
+const hostName = '127.0.0.1'
 const nameSpan = document.getElementById("name")
 const tempSpan = document.getElementById("temp")
 const tempWarnSpan = document.getElementById("temp_warn")
 const successStatusSpan = document.getElementById("success_status")
 const boxDiv = document.getElementById("box")
-const socket = new WebSocket('ws://localhost:8088')
+const socket = new WebSocket(`ws://${hostName}:8088`)
 socket.addEventListener('message', function(event) {
     const reader = new FileReader()
     reader.addEventListener('load',(event2) => {
