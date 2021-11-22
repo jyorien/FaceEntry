@@ -1,5 +1,5 @@
 
-const hostName = '127.0.0.1'
+const hostName = '3.0.117.40'
 const nameSpan = document.getElementById("name")
 const tempSpan = document.getElementById("temp")
 const tempWarnSpan = document.getElementById("temp_warn")
