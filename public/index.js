@@ -1,10 +1,12 @@
 
+const hostName = '127.0.0.1'
 const nameSpan = document.getElementById("name")
 const tempSpan = document.getElementById("temp")
 const tempWarnSpan = document.getElementById("temp_warn")
 const successStatusSpan = document.getElementById("success_status")
+const faceErrorSpan = document.getElementById("face_error")
 const boxDiv = document.getElementById("box")
-const socket = new WebSocket('ws://localhost:8086')
+const socket = new WebSocket(`ws://${hostName}:8088`)
 socket.addEventListener('message', function(event) {
     const reader = new FileReader()
     reader.addEventListener('load',(event2) => {
@@ -17,6 +19,7 @@ socket.addEventListener('message', function(event) {
             tempWarnSpan.innerHTML = ""
             boxDiv.hidden = true
             boxDiv.style.display = 'none'
+            faceErrorSpan.innerText = ""
         },3000)
 
     })
@@ -25,6 +28,9 @@ socket.addEventListener('message', function(event) {
 
 function displayCheckInResult(json) {
     console.log("json", json)
+    if (json["ErrorData"]) {
+        faceErrorSpan.innerText = "No face identified"
+    }
     boxDiv.hidden = false
     boxDiv.style.display = 'inline-block'
     if (Number(json.Temp) >= 37.5 || !json.FaceMatch) 
@@ -37,16 +43,12 @@ function displayCheckInResult(json) {
     else 
         nameSpan.innerText = `${json.ExternalImageId}`
 
-
-    tempSpan.innerHTML = `${json.Temp}&#176;C`
+    if (json.Temp != undefined)
+        tempSpan.innerHTML = `${json.Temp}&#176;C`
 
     
     if (Number(json.Temp) >= 37.5 ) 
         tempWarnSpan.innerHTML+= "TEMPERATURE TOO HIGH"
-    
-    
-
-    
 
 }
 
@@ -137,7 +139,7 @@ function onOpenCVReady() {
   });
 
   function login() {
-      window.location.href = "http://127.0.0.1:8086/login.html"
+      window.location.pathname = "/login.html"
   }
 
 

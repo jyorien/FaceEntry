@@ -1,5 +1,5 @@
-if (window.location.href != "http://127.0.0.1:8086/upload-page") {
-    window.location.href = "http://127.0.0.1:8086/"
+if (window.location.pathname != "/upload-page") {
+    window.location.pathname = "/"
 }
 
 const file_input = document.getElementById("image_input")
