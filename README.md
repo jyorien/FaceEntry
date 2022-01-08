@@ -27,3 +27,4 @@ There are three types of responses, namely:
 - AWS Iot Core
 - AWS Lambda
 - AWS SNS
+
