@@ -24,7 +24,10 @@ There are three types of responses, namely:
 - AWS Cognito
 - Amazon S3
 - AWS Lightsail
-- AWS Iot Core
+- AWS IoT Core
 - AWS Lambda
 - AWS SNS
+
+## System Architecture
+![ITAD FaceEntry drawio](https://user-images.githubusercontent.com/58991251/175478780-c99d9597-a8b0-471d-8dac-60ab25ee5b9e.png)
 
